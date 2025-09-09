@@ -692,7 +692,7 @@ NEXT NETWORK: 192.168.128.32 /27
 ---
 &nbsp;
 
-### 🎯 Exercise 08: Subnet for 20 offices using the Network address 172.16.225.0/19. Maximize the number of IP addresses.
+### 🎯 Exercise 08: Subnet for 16 offices using the Network address 172.16.224.0/19. Maximize the number of IP addresses.
 
 CAI Method
 - CONVERT:	
@@ -749,6 +749,7 @@ Offices:
 &nbsp;
 
 ![ValidRangeRST](img/ValidRange.png)
+
 
 
 
