@@ -1,0 +1,20 @@
+
+----------- QUESTION ------------
+
+1. Design 151 offices for Comdata.com using the available network address 10.96.208.0/20. 
+Maximize the number of IP addresses.
+- For the 2nd office, 
+    assign the first valid IP on R4's e0/1 interface.
+    assign the last valid IP on P1's e0/1 interface.
+
+- For the 3rd office,
+    assign the first valid IP on R3's e0/1 interface.
+    assign the last valid IP on P2's e0/1 interface. 
+
+- For the 4th office,
+    assign the first valid IP on R2's e0/1 interface.
+    assign the last valid IP on S1's e0/1 interface. 
+
+- For the 5th office,
+    assign the first valid IP on R1's e0/1 interface.
+    assign the last valid IP on S2's e0/1 interface. 

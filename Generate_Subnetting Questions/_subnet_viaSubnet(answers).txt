@@ -1,0 +1,126 @@
+
+
+----------- ANSWER COMPUTATION------------
+
+Convert: 151 = 8 bits
+Add: 20 + 8 = /28 = (4th, 16i)
+Ipasok: Ipasok 16i sa 4th octet:
+
+1st Office = 10.96.208.0/28
+2nd Office = 10.96.208.16/28
+3rd Office = 10.96.208.32/28
+4th Office = 10.96.208.48/28
+5th Office = 10.96.208.64/28
+
+---
+
+2nd Office:
+  NETWORK = 10.96.208.16 255.255.255.240
+  VALID RANGE:
+  - FIRST VALID IP = 10.96.208.17
+  - LAST VALID IP = 10.96.208.30
+  BROADCAST/LAST IP = 10.96.208.31
+
+  NOT NETWORK: (NOT 2nd Office) = 10.96.208.32 255.255.255.240
+
+3rd Office:
+  NETWORK = 10.96.208.32 255.255.255.240
+  VALID RANGE:
+  - FIRST VALID IP = 10.96.208.33
+  - LAST VALID IP = 10.96.208.46
+  BROADCAST/LAST IP = 10.96.208.47
+
+  NOT NETWORK: (NOT 3rd Office) = 10.96.208.48 255.255.255.240
+
+4th Office:
+  NETWORK = 10.96.208.48 255.255.255.240
+  VALID RANGE:
+  - FIRST VALID IP = 10.96.208.49
+  - LAST VALID IP = 10.96.208.62
+  BROADCAST/LAST IP = 10.96.208.63
+
+  NOT NETWORK: (NOT 4th Office) = 10.96.208.64 255.255.255.240
+
+5th Office:
+  NETWORK = 10.96.208.64 255.255.255.240
+  VALID RANGE:
+  - FIRST VALID IP = 10.96.208.65
+  - LAST VALID IP = 10.96.208.78
+  BROADCAST/LAST IP = 10.96.208.79
+
+  NOT NETWORK: (NOT 5th Office) = 10.96.208.80 255.255.255.240
+
+
+----------- ANSWER CONFIGURATIONS ------------
+
+2nd Office:
+
+!@R4
+conf t
+ int e0/1
+  ip add 10.96.208.17 255.255.255.240
+  no shut
+  end
+
+!@P1
+conf t
+ int e0/1
+  ip add 10.96.208.30 255.255.255.240
+  no shut
+  end
+
+--
+
+3rd Office:
+
+!@R3
+conf t
+ int e0/1
+  ip add 10.96.208.33 255.255.255.240
+  no shut
+  end
+
+!@P2
+conf t
+ int e0/1
+  ip add 10.96.208.46 255.255.255.240
+  no shut
+  end
+
+--
+
+4th Office:
+
+!@R2
+conf t
+ int e0/1
+  ip add 10.96.208.49 255.255.255.240
+  no shut
+  end
+
+!@S1
+conf t
+ int e0/1
+  ip add 10.96.208.62 255.255.255.240
+  no shut
+  end
+
+--
+
+5th Office:
+
+!@R1
+conf t
+ int e0/1
+  ip add 10.96.208.65 255.255.255.240
+  no shut
+  end
+
+!@S2
+conf t
+ int e0/1
+  ip add 10.96.208.78 255.255.255.240
+  no shut
+  end
+    
+

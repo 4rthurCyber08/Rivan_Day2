@@ -1,0 +1,28 @@
+
+
+----------- QUESTION ------------
+
+Design and implement a network for Comdata.com with 3633 Data Analysts, Cyber Analysts, and Admins. 
+- Use the available IP address space 10.200.0.0/16
+- Reserve the first 100 IP addresses of the network.
+- Set the network for VLAN 20.
+- D1 must be the DHCP server.
+- P1 must be the DHCP client.
+ 
+
+----------- COMPUTE ------------
+
+Convert: __ = __ bits
+Subtract: /32 - __ = /__ = ( __Octet, __i )
+Ipasok: Ipasok __i sa __ octet = __.__.__.__ /__
+
+--
+
+Network IP: (Company) = __.__.__.__  __.__.__.__
+Valid Range:
+- First Valid IP = __.__.__.__
+- Last Valid IP = __.__.__.__
+Broadcast/Last IP = __.__.__.__
+
+NOT Network: (NOT Company) = __.__.__.__  __.__.__.__
+

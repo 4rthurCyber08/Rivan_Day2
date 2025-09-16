@@ -1,0 +1,29 @@
+{
+    "Company_Names": [
+        "Accenture",
+        "Telecare",
+        "Concentrix",
+        "Foundever",
+        "Cognizant",
+        "Teleperformance",
+        "Afni",
+        "Alorica",
+        "Telus",
+        "Comdata"
+    ],
+
+    "User_Groups": [
+        "Admins", 
+        "Team Leads", 
+        "Managers",
+        "Network Engineers",
+        "SOC Admin",
+        "Cyber Analysts",
+        "Data Analysts",
+        "Potential Guests",
+        "Incident Responders",
+        "HR",
+        "VIPs"
+    ]
+
+}

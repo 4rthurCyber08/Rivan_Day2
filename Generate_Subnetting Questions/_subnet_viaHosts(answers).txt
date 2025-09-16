@@ -1,0 +1,52 @@
+
+
+----------- ANSWER COMPUTATION------------
+
+Convert: 3633 = 12 bits
+Subtract: 32 - 12 = /20 = (3rd, 16i)
+Ipasok: Ipasok 16i sa 3rd octet = 10.200.16.0/20
+
+--
+
+Network IP: (Comdata.com) = 10.200.16.0 255.255.240.0
+Valid Range:
+- First Valid IP = 10.200.16.1
+- Last Valid IP = 10.200.31.254
+Broadcast/Last IP = 10.200.31.255
+
+NOT Network: (NOT Comdata.com) = 10.200.32.0 255.255.240.0
+
+
+----------- ANSWER CONFIGURATIONS ------------
+
+!@D1
+conf t
+ vlan 20
+  name Comdata.com
+  exit
+ interface vlan 20
+  ip address 10.200.16.1 255.255.240.0
+  no shutdown
+  exit
+ ip dhcp pool Comdata.com
+  network 10.200.16.0 255.255.240.0
+  default-router 10.200.16.1
+  domain-name Comdata.com
+  end
+
+
+!@A1
+conf t
+ int e0/0
+  switchport mode access
+  switchport access vlan 20
+  end
+
+
+!@P1
+conf t
+ int e0/0
+  no shutdown
+  ip add dhcp
+  end
+
