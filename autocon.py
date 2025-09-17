@@ -1,13 +1,27 @@
+
+_RSTvX = "1"
+_RSTvX_Subnet = "2"
+_RSTvX_Hosts__Day_5 = "3"
+_RSTvX_Mini = "4"
+_RSTvX_MultiSite = "5"
+_MPLSCloud = "6"
+_3Tier = "7"
+_WAN = "8"
+_NetAuto = "9"
+
 rst_ip = crt.Dialog.Prompt("What is your RST IPv4 Address? ")
 lab = crt.Dialog.Prompt("""
 What Lab will you be using? (Input the number of the corresponding lab.)
 
 RSTvX = 1
-RSTvX (Day5) = 2
-MPLS = 3
-WAN = 4
-3Tier = 5
-NetAuto = 6
+RST Subnet = 2
+RST Hosts (Day 5) = 3
+RST Mini = 4
+RST Multisite = 5
+MPLS = 6
+3Tier = 7
+WAN = 8
+NetAuto = 9
 
 Manually enter a series of port numbers = 0 
 
@@ -47,6 +61,45 @@ elif lab == "2":
     ]
 elif lab == "3":
     connections = [
+        "/TELNET " + rst_ip + " 2001",
+        "/TELNET " + rst_ip + " 2002",
+        "/TELNET " + rst_ip + " 2005",
+        "/TELNET " + rst_ip + " 2006",
+        "/TELNET " + rst_ip + " 2007",
+        "/TELNET " + rst_ip + " 2008",
+        "/TELNET " + rst_ip + " 2009",
+        "/TELNET " + rst_ip + " 2010",
+        "/TELNET " + rst_ip + " 2011",
+        "/TELNET " + rst_ip + " 2012",
+        "/TELNET " + rst_ip + " 2013",
+        "/TELNET " + rst_ip + " 2014",
+        "/TELNET " + rst_ip + " 2015",
+        "/TELNET " + rst_ip + " 2016"
+    ]
+elif lab == "4":
+    connections = [
+        "/TELNET " + rst_ip + " 2001",
+        "/TELNET " + rst_ip + " 2002",
+        "/TELNET " + rst_ip + " 2005",
+        "/TELNET " + rst_ip + " 2006",
+        "/TELNET " + rst_ip + " 2007",
+        "/TELNET " + rst_ip + " 2008",
+        "/TELNET " + rst_ip + " 2009",
+        "/TELNET " + rst_ip + " 2010",
+        "/TELNET " + rst_ip + " 2013"
+    ]
+elif lab == "5":
+    connections = [
+        "/TELNET " + rst_ip + " 2002",
+        "/TELNET " + rst_ip + " 2008",
+        "/TELNET " + rst_ip + " 2010",
+        "/TELNET " + rst_ip + " 2012",
+        "/TELNET " + rst_ip + " 2013",
+        "/TELNET " + rst_ip + " 2015",
+        "/TELNET " + rst_ip + " 2016"
+    ]
+elif lab == "6":
+    connections = [
         "/TELNET " + rst_ip + " 2017",
         "/TELNET " + rst_ip + " 2018",
         "/TELNET " + rst_ip + " 2019",
@@ -60,7 +113,7 @@ elif lab == "3":
         "/TELNET " + rst_ip + " 2027",
         "/TELNET " + rst_ip + " 2028"
     ]
-elif lab == "4":
+elif lab == "7":
     connections = [
         "/TELNET " + rst_ip + " 2135",
         "/TELNET " + rst_ip + " 2136",
@@ -83,7 +136,7 @@ elif lab == "4":
         "/TELNET " + rst_ip + " 2153",
         "/TELNET " + rst_ip + " 2154"
     ]
-elif lab == "5":
+elif lab == "8":
     connections = [
         "/TELNET " + rst_ip + " 2204",
         "/TELNET " + rst_ip + " 2205",
@@ -100,7 +153,7 @@ elif lab == "5":
         "/TELNET " + rst_ip + " 2216",
         "/TELNET " + rst_ip + " 2217"
     ]
-elif lab == "6":
+elif lab == "9":
     connections = [
         "/TELNET " + rst_ip + " 2262",
         "/TELNET " + rst_ip + " 2263",
