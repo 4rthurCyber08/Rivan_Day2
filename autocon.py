@@ -1,12 +1,11 @@
-
 _RSTvX = "1"
 _RSTvX_Subnet = "2"
 _RSTvX_Hosts__Day_5 = "3"
 _RSTvX_Mini = "4"
 _RSTvX_MultiSite = "5"
 _MPLSCloud = "6"
-_3Tier = "7"
-_WAN = "8"
+_WAN = "7"
+_3Tier = "8"
 _NetAuto = "9"
 
 rst_ip = crt.Dialog.Prompt("What is your RST IPv4 Address? ")
@@ -19,8 +18,8 @@ RST Hosts (Day 5) = 3
 RST Mini = 4
 RST Multisite = 5
 MPLS = 6
-3Tier = 7
-WAN = 8
+WAN = 7
+3Tier = 8
 NetAuto = 9
 
 Manually enter a series of port numbers = 0 
