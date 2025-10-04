@@ -150,7 +150,8 @@ elif lab == "8":
         "/TELNET " + rst_ip + " 2214",
         "/TELNET " + rst_ip + " 2215",
         "/TELNET " + rst_ip + " 2216",
-        "/TELNET " + rst_ip + " 2217"
+        "/TELNET " + rst_ip + " 2217",
+        "/TELNET " + rst_ip + " 2339"
     ]
 elif lab == "9":
     connections = [
