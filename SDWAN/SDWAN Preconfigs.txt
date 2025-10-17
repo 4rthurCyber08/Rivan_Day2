@@ -1,0 +1,1112 @@
+@cmd
+route add 10.69.255.13 mask 255.255.255.255 10.69.255.5
+
+
+@WAN-EDGE
+conf t
+ hostname Rivan-WAN-Edge
+ enable secret pass
+ service password-encryption
+ no ip domain lookup
+ no logging cons
+ int g0/0
+  ip add 172.16.100.1 255.255.255.252
+  no shut
+ int g0/1
+  ip add 10.69.255.5 255.255.255.248
+  no shut
+ int g0/2
+  ip add 10.69.255.10 255.255.255.252
+  no shut
+ int g0/3
+  ip add 192.168.100.1 255.255.255.252
+  no shut
+ router bgp 100
+  bgp log-neighbor-changes
+  neighbor 172.16.100.2 remote-as 2
+  neighbor 192.168.100.2 remote-as 1
+  address-family ipv4
+   neighbor 172.16.100.2 activate
+   neighbor 192.168.100.2 activate
+   network 10.69.255.0 mask 255.255.255.248
+   network 10.69.255.8 mask 255.255.255.252
+   network 172.16.100.0 mask 255.255.255.252
+   network 192.168.100.0 mask 255.255.255.252
+   end
+wr
+
+
+@DC-SW
+conf t
+ hostname DC-SW
+ enable secret pass
+ service password-encryption
+ no ip domain lookup
+ no logging cons
+ vlan 10
+  name RIVAN_SDWAN
+  exit
+ int vlan 1
+  shut
+ int vlan 10
+  ip add 172.16.10.6 255.255.255.248
+  no shut
+ int g0/0
+  no sw
+  ip add 10.69.255.14 255.255.255.252
+  no shut
+ int range g0/1-3
+  sw mo ac
+  sw ac vlan 10
+ int g1/0
+  no sw
+  ip add 192.168.50.1 255.255.255.252
+  no shut
+ int g1/1
+  no sw
+  ip add 172.16.50.1 255.255.255.252
+  no shut
+ router bgp 100
+  bgp log-neighbor-changes
+  neighbor 192.168.50.2 remote-as 1
+  neighbor 172.16.50.2 remote-as 2
+  address-family ipv4
+   neighbor 192.168.50.2 activate
+   neighbor 172.16.50.2 activate
+   network 172.16.10.0 mask 255.255.255.248
+   network 172.16.10.0 mask 255.255.255.248
+   network 10.69.255.12 mask 255.255.255.252
+   network 192.168.50.0 mask 255.255.255.252
+   network 172.16.50.0 mask 255.255.255.252
+   end
+wr
+
+  
+@INET
+conf t
+ hostname INTERNET
+ enable secret pass
+ service password-encryption
+ no ip domain lookup
+ no logging cons
+ int lo 8
+  ip add 8.8.8.8 255.255.255.255
+ int g0/0
+  ip add 192.168.100.2 255.255.255.252
+  no shut
+ int g0/1
+  ip add 192.168.50.2 255.255.255.252
+  no shut
+ int g0/2
+  ip add 192.168.20.2 255.255.255.252
+  no shut
+ int g0/3
+  ip add 192.168.20.6 255.255.255.252
+  no shut
+ int g0/4
+  ip add 192.168.20.10 255.255.255.252
+  no shut
+ router bgp 1
+  bgp log-neighbor-changes
+  neighbor 192.168.100.1 remote-as 100
+  neighbor 192.168.50.1 remote-as 100
+  neighbor 192.168.20.1 remote-as 100
+  neighbor 192.168.20.5 remote-as 100
+  neighbor 192.168.20.9 remote-as 100
+  address-family ipv4
+   neighbor 192.168.100.1 activate
+   neighbor 192.168.50.1 activate
+   neighbor 192.168.20.1 activate
+   neighbor 192.168.20.5 activate
+   neighbor 192.168.20.9 activate
+   neighbor 192.168.100.1 as-override
+   neighbor 192.168.50.1 as-override
+   neighbor 192.168.20.1 as-override
+   neighbor 192.168.20.5 as-override
+   neighbor 192.168.20.9 as-override
+   network 8.8.8.8 mask 255.255.255.255
+   network 192.168.100.0 mask 255.255.255.252
+   network 192.168.50.0 mask 255.255.255.252
+   network 192.168.20.0 mask 255.255.255.252
+   network 192.168.20.4 mask 255.255.255.252
+   network 192.168.20.8 mask 255.255.255.252
+   end
+wr
+
+
+@MPLS
+conf t
+ hostname MPLS-CLOUD
+ enable secret pass
+ service password-encryption
+ no ip domain lookup
+ no logging cons
+ int lo 0
+  ip add 4.4.4.4 255.255.255.255
+ int g0/0
+  no shut
+  ip add 172.16.50.2 255.255.255.252
+ int g0/1
+  no shut
+  ip add 172.16.20.2 255.255.255.252
+ int g0/2
+  no shut
+  ip add 172.16.20.6 255.255.255.252
+ int g0/3
+  no shut
+  ip add 172.16.20.10 255.255.255.252
+  no shut
+ int g0/4
+  no shut
+  ip add 172.16.100.2 255.255.255.252
+ int g0/5
+  no shut
+  ip add 172.16.200.2 255.255.255.252
+ router bgp 2
+  bgp log-neighbor-changes
+  neighbor 172.16.50.1 remote-as 100
+  neighbor 172.16.100.1 remote-as 100
+  neighbor 172.16.20.1 remote-as 100
+  neighbor 172.16.20.5 remote-as 100
+  neighbor 172.16.20.9 remote-as 100
+  neighbor 172.16.200.1 remote-as 200
+  address-family ipv4
+   neighbor 172.16.50.1 activate
+   neighbor 172.16.100.1 activate
+   neighbor 172.16.20.1 activate
+   neighbor 172.16.20.5 activate
+   neighbor 172.16.20.9 activate
+   neighbor 172.16.200.1 activate
+   neighbor 172.16.50.1 as-override
+   neighbor 172.16.100.1 as-override
+   neighbor 172.16.20.1 as-override
+   neighbor 172.16.20.5 as-override
+   neighbor 172.16.20.9 as-override
+   network 4.4.4.4 mask 255.255.255.255
+   network 172.16.100.0 mask 255.255.255.252
+   network 172.16.50.0 mask 255.255.255.252
+   network 172.16.20.0 mask 255.255.255.252
+   network 172.16.20.4 mask 255.255.255.252
+   network 172.16.20.8 mask 255.255.255.252
+   network 172.16.200.0 mask 255.255.255.252
+   end
+wr
+
+
+
+**************
+SDWAN Appliances
+**************
+
+(Case Sensitive) ORGANIZATION = RIVANCORP
+
+
+@vManage
+conf t
+ system
+  host-name Rivan-vManage
+  site-id 10
+  system-ip 10.1.10.2
+  organization-name RIVANCORP
+  vbond 172.16.10.3
+  admin-tech-on-failure
+ vpn 0
+  int eth0
+   ip add 172.16.10.2/29
+   no shut
+   tunnel-interface
+    allow-service all
+  ip route 0.0.0.0/0 172.16.10.6
+ vpn 512
+  int eth1
+   ip add 10.69.255.13/30
+   no shut
+  ip route 0.0.0.0/0 10.69.255.14
+  commit
+  end
+
+@vBond
+conf t
+ system
+  host-name Rivan-vBond
+  site-id 10
+  system-ip 10.1.10.3
+  organization-name RIVANCORP
+  vbond 172.16.10.3 local vbond
+  admin-tech-on-failure
+ vpn 0
+  int ge0/0
+   ip add 172.16.10.3/29
+   no shut
+   tunnel-interface
+    encapsulation ipsec
+    allow-service all
+  ip route 0.0.0.0/0 172.16.10.6
+  commit
+  end
+
+
+@vSmart
+conf t
+ system
+  host-name Rivan-vSmart
+  site-id 10
+  system-ip 10.1.10.1
+  organization-name RIVANCORP
+  vbond 172.16.10.3
+  admin-tech-on-failure
+  vpn 0
+   int eth0
+    ip add 172.16.10.1/29
+	no shut
+	tunnel-interface
+	 allow-service all
+   ip route 0.0.0.0/0 172.16.10.6
+   commit
+   end
+
+   
+@vEdge-LUZON
+conf t
+ system
+  host-name vEdge-LUZON
+  system-ip 10.1.21.1
+  site-id 21
+  organization-name RIVANCORP
+  admin-tech-on-failure
+  vbond 172.16.10.3
+ vpn 0
+  name "Transport VPN"
+   router
+    bgp 100
+	 address-family ipv4-unicast
+	  network 192.168.20.0/30 
+	  network 172.16.20.0/30 
+	  exit
+	 neighbor 192.168.20.2 remote-as 1
+	 neighbor 172.16.20.2 remote-as 2
+	 exit
+	exit
+   exit
+  int ge0/0
+   description LAN-Traffic
+   ip address 172.16.1.1/30
+   tunnel-interface
+    encapsulation ipsec
+	color private1 restrict
+    allow-service bgp
+    no allow-service dhcp
+    allow-service dns
+    allow-service icmp
+    no allow-service sshd
+    no allow-service netconf
+    no allow-service ntp
+    allow-service ospf
+    no allow-service stun
+	no shut
+	exit
+  int ge0/1
+   description INTERNET-Traffic
+   ip add 192.168.20.1/30
+   tunnel-interface
+    encapsulation ipsec
+    color biz-internet
+    allow-service bgp
+    no allow-service dhcp
+    allow-service dns
+    allow-service icmp
+    no allow-service sshd
+    no allow-service netconf
+    no allow-service ntp
+    no allow-service ospf
+    no allow-service stun
+	no shut
+	exit
+   int ge0/2
+    description MPLS-Traffic
+    ip address 172.16.20.1/30
+    tunnel-interface
+     encapsulation ipsec
+	 color mpls
+     allow-service bgp
+     no allow-service dhcp
+     allow-service dns
+     allow-service icmp
+     no allow-service sshd
+     no allow-service netconf
+     no allow-service ntp
+     no allow-service ospf
+     no allow-service stun
+	 no shut
+	 exit
+	exit
+   vpn 512
+    name "Management VPN"
+    interface eth0
+     description eth0
+     ip dhcp-client
+     no shutdown
+	 commit
+	 end
+	 
+
+@vEdge-VISAYAS
+conf t
+ system
+  host-name vEdge-VISAYAS
+  system-ip 10.1.25.1
+  site-id 25
+  organization-name RIVANCORP
+  admin-tech-on-failure
+  vbond 172.16.10.3
+ vpn 0
+  name "Transport VPN"
+   router
+    bgp 100
+	 address-family ipv4-unicast
+	  network 192.168.20.4/30 
+	  network 172.16.20.4/30 
+	  exit
+	 neighbor 192.168.20.6 remote-as 1
+	 neighbor 172.16.20.6 remote-as 2
+	 exit
+	exit
+   exit
+  int ge0/0
+   description LAN-Traffic
+   ip address 172.16.5.1/30
+   tunnel-interface
+    encapsulation ipsec
+	color private1 restrict
+    allow-service bgp
+    no allow-service dhcp
+    allow-service dns
+    allow-service icmp
+    no allow-service sshd
+    no allow-service netconf
+    no allow-service ntp
+    allow-service ospf
+    no allow-service stun
+	no shut
+	exit
+  int ge0/1
+   description INTERNET-Traffic
+   ip add 192.168.20.5/30
+   tunnel-interface
+    encapsulation ipsec
+    color biz-internet
+    allow-service bgp
+    no allow-service dhcp
+    allow-service dns
+    allow-service icmp
+    no allow-service sshd
+    no allow-service netconf
+    no allow-service ntp
+    no allow-service ospf
+    no allow-service stun
+	no shut
+	exit
+   int ge0/2
+    description MPLS-Traffic
+    ip address 172.16.20.5/30
+    tunnel-interface
+     encapsulation ipsec
+	 color mpls
+     allow-service bgp
+     no allow-service dhcp
+     allow-service dns
+     allow-service icmp
+     no allow-service sshd
+     no allow-service netconf
+     no allow-service ntp
+     no allow-service ospf
+     no allow-service stun
+	 no shut
+	 exit
+	exit
+   vpn 512
+    name "Management VPN"
+    interface eth0
+     description eth0
+     ip dhcp-client
+     no shutdown
+	 commit
+	 end
+
+
+
+@vEdge-MINDANAO
+conf t
+ system
+  host-name vEdge-MINDANAO
+  system-ip 10.1.29.1
+  site-id 29
+  organization-name RIVANCORP
+  admin-tech-on-failure
+  vbond 172.16.10.3
+ vpn 0
+  name "Transport VPN"
+   router
+    bgp 100
+	 address-family ipv4-unicast
+	  network 192.168.20.8/30 
+	  network 172.16.20.8/30 
+	  exit
+	 neighbor 192.168.20.10 remote-as 1
+	 neighbor 172.16.20.10 remote-as 2
+	 exit
+	exit
+   exit
+  int ge0/0
+   description LAN-Traffic
+   ip address 172.16.9.1/30
+   tunnel-interface
+    encapsulation ipsec
+	color private1 restrict
+    allow-service bgp
+    no allow-service dhcp
+    allow-service dns
+    allow-service icmp
+    no allow-service sshd
+    no allow-service netconf
+    no allow-service ntp
+    allow-service ospf
+    no allow-service stun
+	no shut
+	exit
+  int ge0/1
+   description INTERNET-Traffic
+   ip add 192.168.20.9/30
+   tunnel-interface
+    encapsulation ipsec
+    color biz-internet
+    allow-service bgp
+    no allow-service dhcp
+    allow-service dns
+    allow-service icmp
+    no allow-service sshd
+    no allow-service netconf
+    no allow-service ntp
+    no allow-service ospf
+    no allow-service stun
+	no shut
+	exit
+   int ge0/2
+    description MPLS-Traffic
+    ip address 172.16.20.9/30
+    tunnel-interface
+     encapsulation ipsec
+	 color mpls
+     allow-service bgp
+     no allow-service dhcp
+     allow-service dns
+     allow-service icmp
+     no allow-service sshd
+     no allow-service netconf
+     no allow-service ntp
+     no allow-service ospf
+     no allow-service stun
+	 no shut
+	 exit
+	exit
+   vpn 512
+    name "Management VPN"
+    interface eth0
+     description eth0
+     ip dhcp-client
+     no shutdown
+	 commit
+	 end
+
+
+
+**************
+PKI Server
+**************
+
+Configuring Cisco IOSv Router as a PKI Server
+
+1. Bootstrap configuration.
+
+@PKI-Server
+conf t
+ hostname PKI-SERVER
+ enable secret pass
+ service password-encryption
+ no logging cons
+ no ip domain lookup
+ int g0/0
+  ip add 10.69.255.9 255.255.255.252
+  no shut
+ ip route 0.0.0.0 0.0.0.0 10.69.255.10
+ end
+wr
+
+
+2. Configure PKI Server
+
+	- Enable HTTP
+	- Generate Keys
+	- Create PKI Server instance
+	
+@PKI-Server
+conf t
+ ip http server
+ !
+ crypto key generate rsa label rivanpki modulus 2048
+ !
+ crypto pki server rivanpki
+  database url flash:
+  database level complete
+  issuer-name cn=rootca.RIVANCORP.local
+  hash sha512
+  database archive pkcs12 password C1sc0123
+  grant auto
+  no shut
+  exit
+
+
+3. Export the Root CA (rivanpki) and setup tftp server
+
+@PKI-Server
+conf t
+ crypto pki export rivanpki pem url flash:
+ ! -> Enter
+
+ !
+ tftp-server flash:rivanpki.ca
+ !
+ crypto pki export rivanpki pem terminal
+ ! -> Copy and store the CA
+ end
+wr
+
+
+**************
+SETUP CHAIN-OF-TRUST ON ALL SDWAN APPLIANCES
+**************
+
+1. Install the Root CA on all SDWAN Appliances
+
+@ALL SDWAN Appliances
+vshell
+mkdir /home/admin/pkicerts
+cd /home/admin/pkicerts
+tftp -g -r rivanpki.ca 10.69.255.9
+exit
+
+	*If tftp does not work, print the CA on the terminal then create a file on all SDWAN linux shell with the contents of the Root CA.
+		
+		##################################
+		### DO NOT COPY AND PASTE THIS ###
+		##################################
+		
+	@ALL SDWAN Appliances
+	vshell
+	mkdir /home/admin/pkicerts
+	cd /home/admin/pkicerts
+	vim rivanpki.ca
+		-> press ENTER
+		-> press "i" for insert mode
+		-> then, paste the root ca
+		-> press "esc" button
+		-> enter ":wq" which means write quit"
+    exit
+	
+
+@ALL SDWAN Appliances
+request root-cert-chain install /home/admin/pkicerts/rivanpki.ca
+
+
+2. Access vManage Web GUI
+
+Username: admin
+Password: C1sc0123
+
+Navigate to "Administration" > "Settings"
+Then, modify the following:
+	Organization Name: RIVANCORP
+	vBond: 172.16.10.3	Port: 12346
+	Controller Certificate Authorization:
+		Set CSR Properties:
+			Domain Name: RIVANCORP.local
+			Organizational Unit: RIVANCORP
+			Organization: RIVANCORP
+			City: Makati
+			State: NCR
+			Email: rivan@localhost.com
+			2-Letter Country Code: PH
+			Validity: 3 Years
+	
+
+3. Sign the CSR of all Controllers
+
+@Web GUI
+configurations > certificate
+	Generate CSR for vManage, vBond, and vSmart
+	Then, copy the csr.
+
+
+@PKI-Server
+crypto pki server rivanpki request pkcs10 terminal
+! -> Paste the CSR
+! -> Press ENTER
+
+! -> Copy the granted certificate
+
+
+4. Sign the CSR of all vEdges
+
+@vEdges
+request csr upload /home/admin/pkicerts/requests.csr
+vshell
+cat /home/admin/pkicerts/requests.csr
+! -> Copy the CSR
+
+
+@PKI-Server
+crypto pki server rivanpki request pkcs10 terminal
+! -> Paste the CSR
+! -> Press ENTER
+
+! -> Copy the granted certificate
+
+
+@vEdges
+vshell
+vim /home/admin/pkicerts/grant.ca
+	-> press ENTER
+	-> press "i" for insert mode
+	-> then, paste the root ca
+	-> press "esc" button
+	-> enter ":wq" which means write quit"
+exit
+request certificate install /home/admin/pkicerts/grant.ca
+show certificate serial
+
+vEdge-LUZON# show certificate serial 
+Chassis number: 61b94fbe-66e1-48a4-b5cf-9c45422c7ca7 serial number: 05
+vEdge-LUZON# 
+
+vEdge-VISAYAS# show certificate serial
+Chassis number: 0c780aae-8c55-45f5-8696-451d2d331c2e serial number: 06
+vEdge-VISAYAS# 
+
+vEdge-MINDANAO# show certificate serial
+Chassis number: 5f4be17b-8e6a-46ae-9467-35b26f5d569a serial number: 07
+vEdge-MINDANAO# 
+
+
+
+@vManage, vBond
+request vedge add chassis-num 5f4be17b-8e6a-46ae-9467-35b26f5d569a serial-number 07
+request vedge add chassis-num 0c780aae-8c55-45f5-8696-451d2d331c2e serial-number 06
+request vedge add chassis-num 61b94fbe-66e1-48a4-b5cf-9c45422c7ca7 serial-number 05
+
+
+
+**************
+CONFIGURE BRANCH CORESWITCHES
+**************
+
+@CSW-LUZON
+conf t
+router ospf 1
+network 172.16.1.0 0.0.0.3 area 0
+network 1.1.1.1 0.0.0.0 area 0
+end
+wr
+
+@CSW-VISAYAS
+conf t
+router ospf 1
+network 172.16.5.0 0.0.0.3 area 0
+network 1.1.1.1 0.0.0.0 area 0
+end
+wr
+
+@CSW-MINDANAO
+conf t
+router ospf 1
+network 172.16.9.0 0.0.0.3 area 0
+network 1.1.1.1 0.0.0.0 area 0
+end
+wr
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+**************
+PRECONFIGS
+**************
+
+(Case Sensitive) ORGANIZATION = RIVANCORP
+
+
+@vManage
+conf t
+ system
+  host-name Rivan-vManage
+  site-id 100
+  system-ip 10.100.1.101
+  organization-name RIVANCORP
+  vbond 10.255.10.102
+  admin-tech-on-failure
+ vpn 0
+  int eth0
+   ip add 10.255.10.101/24
+   no shut
+   tunnel-interface
+    allow-service all
+  ip route 0.0.0.0/0 10.255.10.254
+ vpn 512
+  int eth1
+   ip add 10.255.10.10/24
+   no shut
+  ip route 0.0.0.0/0 10.255.10.254
+  commit
+
+
+@vBond
+conf t
+ system
+  host-name Rivan-vBond
+  site-id 100
+  system-ip 10.100.1.102
+  organization-name RIVANCORP
+  vbond 10.255.10.102 local vbond
+  admin-tech-on-failure
+ vpn 0
+  int ge0/0
+   ip add 10.255.10.102/24
+   no shut
+   tunnel-interface
+    encapsulation ipsec
+    allow-service all
+  ip route 0.0.0.0/0 10.255.10.254
+  commit
+
+
+@vSmart
+conf t
+ system
+  host-name Rivan-vSmart
+  site-id 100
+  system-ip 10.100.1.103
+  organization-name RIVANCORP
+  vbond 10.255.10.102
+  admin-tech-on-failure
+  vpn 0
+   int eth0
+    ip add 10.255.10.103/24
+	no shut
+	tunnel-interface
+	 allow-service all
+   ip route 0.0.0.0/0 10.255.10.254
+   commit
+   
+   
+@vEdge-LUZON
+conf t
+ system
+  host-name vEdge-LUZON
+  system-ip 10.5.1.121
+  site-id 5
+  organization-name RIVANCORP
+  admin-tech-on-failure
+  vbond 10.255.10.102
+ vpn 0
+  name "Transport VPN"
+   router
+    ospf 
+	 timers spf 200 1000 10000
+     area 0
+      stub no-summary
+      interface ge0/2
+      exit
+     range 10.0.10.0/24
+     range 10.255.10.0/24
+	 exit
+    exit
+   exit
+  int ge0/0
+   ip add 10.255.10.121/24
+   tunnel-interface
+    encapsulation ipsec
+    color private1 restrict
+    no allow-service bgp
+    allow-service dhcp
+    allow-service dns
+    allow-service icmp
+    no allow-service sshd
+    no allow-service netconf
+    no allow-service ntp
+    allow-service ospf
+    no allow-service stun
+	no shut
+	exit
+   int ge0/2
+    description ForVlan
+    ip address 10.0.10.1/24
+    tunnel-interface
+     encapsulation ipsec
+     no allow-service bgp
+     allow-service dhcp
+     allow-service dns
+     allow-service icmp
+     no allow-service sshd
+     no allow-service netconf
+     no allow-service ntp
+     allow-service ospf
+     no allow-service stun
+	 no shut
+	 exit
+	exit
+   vpn 512
+    name "Management VPN"
+    interface eth0
+     description eth0
+     ip dhcp-client
+     no shutdown
+	 commit
+
+
+@vEdge-VISAYAS
+conf t
+ system
+  host-name vEdge-VISAYAS
+  system-ip 10.6.1.122
+  site-id 6
+  organization-name RIVANCORP
+  admin-tech-on-failure
+  vbond 10.255.10.102
+ vpn 0
+  name "Transport VPN"
+   router
+    ospf 
+	 timers spf 200 1000 10000
+     area 0
+      stub no-summary
+      interface ge0/2
+      exit
+     range 10.0.20.0/24
+     range 10.255.10.0/24
+	 exit
+    exit
+   exit
+  int ge0/0
+   ip add 10.255.10.122/24
+   tunnel-interface
+    encapsulation ipsec
+    color private1 restrict
+    no allow-service bgp
+    allow-service dhcp
+    allow-service dns
+    allow-service icmp
+    no allow-service sshd
+    no allow-service netconf
+    no allow-service ntp
+    allow-service ospf
+    no allow-service stun
+	no shut
+	exit
+   int ge0/2
+    description ForVlan
+    ip address 10.0.20.1/24
+    tunnel-interface
+     encapsulation ipsec
+     no allow-service bgp
+     allow-service dhcp
+     allow-service dns
+     allow-service icmp
+     no allow-service sshd
+     no allow-service netconf
+     no allow-service ntp
+     allow-service ospf
+     no allow-service stun
+	 no shut
+	 exit
+	exit
+   vpn 512
+    name "Management VPN"
+    interface eth0
+     description eth0
+     ip dhcp-client
+     no shutdown
+	 commit
+
+
+@vEdge-MINDANAO
+conf t
+ system
+  host-name vEdge-MINDANAO
+  system-ip 10.7.1.122
+  site-id 7
+  organization-name RIVANCORP
+  admin-tech-on-failure
+  vbond 10.255.10.102
+ vpn 0
+  name "Transport VPN"
+   router
+    ospf 
+	 timers spf 200 1000 10000
+     area 0
+      stub no-summary
+      interface ge0/2
+      exit
+     range 10.0.30.0/24
+     range 10.255.10.0/24
+	 exit
+    exit
+   exit
+  int ge0/0
+   ip add 10.255.10.123/24
+   tunnel-interface
+    encapsulation ipsec
+    color private1 restrict
+    no allow-service bgp
+    allow-service dhcp
+    allow-service dns
+    allow-service icmp
+    no allow-service sshd
+    no allow-service netconf
+    no allow-service ntp
+    allow-service ospf
+    no allow-service stun
+	no shut
+	exit
+   int ge0/2
+    description ForVlan
+    ip address 10.0.30.1/24
+    tunnel-interface
+     encapsulation ipsec
+     no allow-service bgp
+     allow-service dhcp
+     allow-service dns
+     allow-service icmp
+     no allow-service sshd
+     no allow-service netconf
+     no allow-service ntp
+     allow-service ospf
+     no allow-service stun
+	 no shut
+	 exit
+	exit
+   vpn 512
+    name "Management VPN"
+    interface eth0
+     description eth0
+     ip dhcp-client
+     no shutdown
+	 commit
+
+
+@IOS-CA
+conf t
+ hostname IOS-CA
+ crypto key generate rsa label rivan-pki modulus 2048
+ ip http server
+ crypto pki server rivan-pki
+  database url flash:
+  database level complete
+  issuer-name cn=rootca.RIVANCORP.local
+  hash sha256
+  database archive pkcs12 password C1sc0123
+  grant auto
+  no shut
+  exit
+ crypto pki export rivan-pki pem url flash:
+ ! -> Enter
+
+ !
+ tftp-server flash:rivan-pki.ca
+ int gi0/0
+  ip add 10.255.10.50 255.255.255.0
+  no shut
+ ip route 0.0.0.0 0.0.0.0 10.255.10.254
+ end
+wr
+
+####
+Get root certificate:
+
+@IOS-CA
+crypto pki export rivan-pki pem terminal
+! copy the ca
+
+Get rootca from ca-server:
+
+@vManage, vBond, vSmart, vEdges
+vshell
+tftp -g -r PKI.ca 10.200.2.1
+exit
+
+	*If it does not work, simply copy from terminal then create a copy using vim.
+
+Install rootca:
+
+@all sdwan-appliances
+request root-cert-chain install /home/admin/rivan-pki.ca
+
+
+
+@CSW-LUZON
+conf t
+ hostname CSW-LUZON
+ ip routing
+ int lo0
+  ip add 1.1.1.1 255.255.255.255
+ int e0/0
+  no sw
+  ip add 172.16.10.2 255.255.255.0
+  no shut
+  end
+wr
+
+
+@CSW-VISAYAS
+conf t
+ hostname CSW-VISAYAS
+ ip routing
+ int lo0
+  ip add 2.2.2.2 255.255.255.255
+ int e0/0
+  no sw
+  ip add 172.16.20.2 255.255.255.0
+  no shut
+  end
+wr
+
+
+@CSW-MINDANAO
+conf t
+ ip routing
+ hostname CSW-MINDANAO
+ int lo0
+  ip add 3.3.3.3 255.255.255.255
+ int e0/0
+  no sw
+  ip add 172.16.30.2 255.255.255.0
+  no shut
+  end
+wr
