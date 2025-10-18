@@ -10,6 +10,7 @@
 4. Configure Mail Server
   - Send Emails
 
+5. Syslog
 
 ---
 
