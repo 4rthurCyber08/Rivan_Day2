@@ -293,7 +293,7 @@ over a maximum of 30 hops:
 <br>
 <br>
 
-![FingerMethod](img/IPv4_Finger.png)
+
 
 
 <br>
@@ -400,7 +400,7 @@ __Example 03:__
 
 ## 0️⃣ Bit Length
 
-![BitLength](img/BitLength.png)
+
 
 
 
@@ -749,6 +749,7 @@ Offices:
 &nbsp;
 
 ![ValidRangeRST](img/ValidRange.png)
+
 
 
 
