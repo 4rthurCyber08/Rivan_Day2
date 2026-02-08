@@ -400,9 +400,24 @@ __Example 03:__
 
 ## 0️⃣ Bit Length
 
-
-
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 &nbsp;
 ---
@@ -749,6 +764,7 @@ Offices:
 &nbsp;
 
 ![ValidRangeRST](img/ValidRange.png)
+
 
 
 
