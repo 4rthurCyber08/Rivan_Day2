@@ -605,7 +605,6 @@ show ip dhcp binding
 
 
 ### 🎯 Exercise 06: Design and implement networks.
-![DHCP](img/DHCP.png)
 
 <br>
 
@@ -651,13 +650,25 @@ S2
 
 ## Subnetting (Subnet)
 
-![BitLength](img/BitLength.png)
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-&nbsp;
----
-&nbsp;
-
-![RANGE](img/Range.png)
 
 <br>
 <br>
@@ -762,27 +773,6 @@ Offices:
 &nbsp;
 ---
 &nbsp;
-
-![ValidRangeRST](img/ValidRange.png)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
