@@ -1499,65 +1499,6 @@ conf t
   end
 ~~~
 
-<br>
-
-### STEP 1 - Export Root CA
-
-
-
-&nbsp;
----
-&nbsp;
-
-
-### STEP 2 - Setup Chain-of-trust on vEDGE
-
-
-
-&nbsp;
----
-&nbsp;
-
-
-### STEP 3 - Generate Certificate Signing Requests
-
-
-
-&nbsp;
----
-&nbsp;
-
-
-### STEP 4 - Sign the CSR 
-
-
-
-&nbsp;
----
-&nbsp;
-
-
-### STEP 5 - Import Signed CSR
-
-
-
-&nbsp;
----
-&nbsp;
-
-
-### STEP 6 - Install Certificates
-
-
-
-&nbsp;
----
-&nbsp;
-
-
-### STEP 7 - Onboard to vManage & vBond
-
-
 
 <br>
 <br>
