@@ -2031,6 +2031,50 @@ Create a Service Account:
 
 ### STEP 5 - Configure Certificates on Cisco UTM-PH & UTM-JP
 
+~~~
+!@UTM-PH
+conf t
+ crypto key generate rsa modulus 2048 label CERTKEY
+ !
+ crypto pki trustpoint CCNPTRUST
+  enrollment url http://192.168.102.8/certsrv/mscep/mscep.dll
+  usage ike
+  usage ssl-server
+  usage ssl-client
+  serial-number
+  fqdn utmph.ccnp#$34T#.com
+  ip-address 208.8.8.11
+  subject-name CN=UTM-PH,OU=NOC,O=RIVANCORP,L=MAKATI,ST=NCR,C=PH
+  subject-alt-name utmph.ccnp#$34T#.com
+  revocation-check none
+  source interface GigabitEthernet1
+  rsakeypair CERTKEY
+  end
+~~~
+
+<br>
+
+~~~
+!@UTM-JP
+conf t
+ crypto key generate rsa modulus 2048 label CERTKEY
+ !
+ crypto pki trustpoint CCNPTRUST
+  enrollment url http://192.168.102.8/certsrv/mscep/mscep.dll
+  usage ike
+  usage ssl-server
+  usage ssl-client
+  serial-number
+  fqdn utmjp.ccnp#$34T#.com
+  ip-address 208.8.8.12
+  subject-name CN=UTM-JP,OU=NOC,O=RIVANCORP,L=TOKYO,ST=KANTO,C=JP
+  subject-alt-name utmjp.ccnp#$34T#.com
+  revocation-check none
+  source interface GigabitEthernet1
+  rsakeypair CERTKEY
+  end
+~~~
+
 
 
 &nbsp;
@@ -2069,7 +2113,11 @@ Grab the Hash & Challenge Password
 
 ### STEP 7 - Enroll Network Devices
 
-
+~~~
+!@UTM-PH,UTM-JP
+conf t
+ crypto pki enroll CCNPTRUST
+~~~
 
 
 <br>
@@ -2095,3 +2143,124 @@ __Tunnel Properties__
 - Remote Subnets
 
 
+&nbsp;
+---
+&nbsp;
+
+
+### STEP 1 - Phase 1 (IKEv2)
+~~~
+!@UTM-PH
+conf t
+ crypto ikev2 proposal IKEV2-PROP
+  encryption ______
+  integrity ______
+  group ______
+ !
+ crypto ikev2 policy IKEV2-POL
+  proposal IKEV2-PROP
+ !
+ crypto ikev2 profile IKEV2-PROF
+  match identity remote address __.__.__.__
+  authentication remote rsa-sig
+  authentication local rsa-sig
+  pki trustpoint CCNPTRUST
+  end
+~~~
+
+<br>
+
+~~~
+!@UTM-JP
+conf t
+ crypto ikev2 proposal IKEV2-PROP
+  encryption ______
+  integrity ______
+  group ______
+ !
+ crypto ikev2 policy IKEV2-POL
+  proposal IKEV2-PROP
+ !
+ crypto ikev2 profile IKEV2-PROF
+  match identity remote address __.__.__.__
+  authentication remote rsa-sig
+  authentication local rsa-sig
+  pki trustpoint CCNPTRUST
+  end
+~~~
+
+
+&nbsp;
+---
+&nbsp;
+
+
+### STEP 2 - Phase 2 (IPSEC)
+~~~
+!@UTM-PH, UTM-JP
+conf t
+ crypto ipsec transform-set TSET _____  _____
+  mode ____
+ !
+ crypto ipsec profile VPN-IPSEC-PROF
+  set transform-set TSET
+  set ikev2-profile IKEV2-PROF
+  end
+~~~
+
+
+&nbsp;
+---
+&nbsp;
+
+
+### STEP 3 - Tunnel Properties
+
+~~~
+!@UTM-PH
+conf t
+ int tun1
+  ip add __.__.__.__  __.__.__.__
+  tunnel source ___
+  tunnel destination __.__.__.__
+  tunnel mode ipsec ipv4
+  tunnel protection ipsec profile VPN-IPSEC-PROF
+  end
+~~~
+
+<br>
+
+~~~
+!@UTM-JP
+conf t
+ int tun1
+  ip add __.__.__.__  __.__.__.__
+  tunnel source ___
+  tunnel destination __.__.__.__
+  tunnel mode ipsec ipv4
+  tunnel protection ipsec profile VPN-IPSEC-PROF
+  end
+~~~
+
+
+&nbsp;
+---
+&nbsp;
+
+
+### STEP 4 - Remote Subnets / Interesting Traffic
+~~~
+!@UTM-PH
+conf t
+ ip route __.__.__.__  __.__.__.__  __.__.__.__
+ end
+~~~
+
+<br>
+
+~~~
+!@UTM-JP
+conf t
+ ip route __.__.__.__  __.__.__.__  __.__.__.__
+ end
+~~~
