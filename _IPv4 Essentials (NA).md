@@ -58,118 +58,13 @@ View your cameras:
 
 Send an email from support@daytwo#$34T#.com to user1@daytwo#$34T#.com
 
-<br>
-<br>
-
----
-&nbsp;
-
-## 🎯 Review
-
-### 1. A Cisco IP phone receives untagged data traffic from an attached PC. Which action is taken by the phone?
-  - [ ] __A.__ It drops the traffic.
-  - [ ] __B.__ It allows the traffic to pass through unchanged.
-  - [ ] __C.__ It tags the traffic with the native VLAN.
-  - [ ] __D.__ It tags the traffic with the default VLAN
-
-&nbsp;
----
-&nbsp;
-
-### 2. Which command can you enter to determine the addresses that have been assigned on a DHCP Server?
-  - [ ] __A.__ Show ip DHCP database.
-  - [ ] __B.__ Show ip DHCP pool.
-  - [ ] __C.__ Show ip DHCP binding.
-  - [ ] __D.__ Show ip DHCP server statistic.
-
-&nbsp;
----
-&nbsp;
-
-### 3. Which two VLAN IDs indicate a default VLAN? (Choose two.)
-  - [ ] __A.__ 0
-  - [ ] __B.__ 1
-  - [ ] __C.__ 1005
-  - [ ] __D.__ 1006
-  - [ ] __E.__ 4096
-
-&nbsp;
----
-&nbsp;
-
-### 4. Which command prevents passwords from being stored in the configuration as plain text on a router or switch?
-  - [ ] __A.__ enable secret
-  - [ ] __B.__ enable password
-  - [ ] __C.__ service password-encryption
-  - [ ] __D.__ username cisco password encrypt
-
-&nbsp;
----
-&nbsp;
-
-### 5. What is the primary function of a Layer 3 device?
-  - [ ] __A.__ to transmit wireless traffic between hosts.
-  - [ ] __B.__ to analyze traffic and drop unauthorized traffic from the Internet.
-  - [ ] __C.__ to forward traffic within the same broadcast domain.
-  - [ ] __D.__ to pass traffic between different networks.
-
-&nbsp;
----
-&nbsp;
-
-### 6. Which option about JSON is true
-  - [ ] __A.__ uses predefined tags or angle brackets () to delimit markup text
-  - [ ] __B.__ used to describe structured data that includes arrays
-  - [ ] __C.__ used for storing information
-  - [ ] __D.__ similar to HTML, it is more verbose than XML
-
-&nbsp;
----
-&nbsp;
-
-### 7. Which output displays a JSON data representation?
-Which of the following is the JSON encoding of a dictionary or hash?
-  - [ ] __A.__ {“key”: “value”}
-  - [ ] __B.__ [“key”, “value”]
-  - [ ] __C.__ {“key”, “value”}
-  - [ ] __D.__ (“key”: “value”)
-
-&nbsp;
----
-&nbsp;
-
-### 8. What are two functions of a Layer 2 switch? (Choose two.)
-  - [ ] __A.__ acts as a central point for association and authentication servers.
-  - [ ] __B.__ selects the best route between networks on a WAN.
-  - [ ] __C.__ moves packets within a VLAN.
-  - [ ] __D.__ moves packets between different VLANs.
-  - [ ] __E.__ makes forwarding decisions based on the MAC address of a packet.
-
-&nbsp;
----
-&nbsp;
-
-### 9. Using direct sequence spread spectrum, which three 2.4-GHz channels are used to limit collisions?
-  - [ ] __A.__ 5, 6, 7
-  - [ ] __B.__ 1, 2, 3
-  - [ ] __C.__ 1, 6, 11
-  - [ ] __D.__ 1, 5, 10
-
-&nbsp;
----
-&nbsp;
-
-### 10. When should an engineer implement a collapsed-core architecture?
-  - [ ] __A.__ Only when using VSS technology
-  - [ ] __B.__ For small networks with minimal need for growth
-  - [ ] __C.__ For large networks that are connected to multiple remote sites
-  - [ ] __D.__ The access and distribution layers must be on the same device
 
 <br>
 <br>
 
 ---
 &nbsp;
+
 
 # 💻 Network Fundamentals
 
@@ -200,27 +95,20 @@ Which of the following is the JSON encoding of a dictionary or hash?
 | +1  |         |               |        |
 |     |         |               |        |
 
+
 &nbsp;
 ---
 &nbsp;
+
 
 ### Internet Protocol Version 4 (IPv4)
 *What is the IP address of your phone?*
   - ipchicken.com
   - ipconfig
 
-<br>
-
-### Public IP address
-| Class | IP Range                    |
-| ---   | ---                         |
-| A     | 1.0.0.0 - 126.255.255.255   |
-| B     | 128.0.0.0 - 191.255.0.0     |
-| C     | 192.0.0.0 - 223.255.255.0   |
-| D     | 224.0.0.0 - 239.255.255.255 |
-| E     | 240.0.0.0 - 255.255.255.255 |
 
 <br>
+
 
 ~~~cmd
 @cmd
@@ -256,9 +144,11 @@ over a maximum of 30 hops:
 
 </details>
 
+
 &nbsp;
 ---
 &nbsp;
+
 
 ### Private IP address  
 *Why do big companies uses the IP addresses that starts with 10.x.x.x ? *
@@ -271,6 +161,7 @@ over a maximum of 30 hops:
 | B     | 172.16.0.0 - 172.31.255.255     | 64,534      |
 | C     | 192.168.0.0 - 192.168.255.255   | 254         |
 
+
 <br>
 <br>
 <br>
@@ -278,6 +169,7 @@ over a maximum of 30 hops:
 
 ---
 &nbsp;
+
 
 ## 🙌 CIDR (Rivan Finger Method)
 *How do devices see IP addresses? *
@@ -351,9 +243,11 @@ __Example 03:__
 
 </details>
 
+
 &nbsp;
 ---
 &nbsp;
+
 
 | Binary             | Decimal|
 | ---                | ---    |
@@ -376,11 +270,13 @@ __Example 03:__
 |                    |        |
 | `0 0 0 1  0 0 0 0` | = 16   |
 
+
 <br>
 <br>
 
 ---
 &nbsp;
+
 
 ### 🎯 Exercise 01: Convert CIDR to various formats
 
@@ -392,11 +288,13 @@ __Example 03:__
 | /27  |             | (Octet, i)   |             |
 | /14  |             | (Octet, i)   |             |
 
+
 <br>
 <br>
 
 ---
 &nbsp;
+
 
 ## 0️⃣ Bit Length
 
@@ -445,6 +343,7 @@ __Example 03:__
 | 20,000    |      |
 | 55        |      |
 | your age  |      |
+
 
 <br>
 <br>
@@ -514,11 +413,13 @@ Insert 8 inside the 3rd octet of the given IP address space, 10.0.0.0
 
 </details>
 
+
 <br>
 <br>
 
 ---
 &nbsp;
+
 
 ### 🎯 Exercise 04: Design a network for `concentrix.com` with 160 admin, 250 managers, 112 executive, 100 security agents. Use the 172.16.0.0/16 IP address space.
 - [ ] 172.16.8.0 /22
@@ -544,11 +445,13 @@ CIA Method
 |                               |                        |
 | Next Network (Insert i again) |                        |
 
+
 <br>
 <br>
 
 ---
 &nbsp;
+
 
 ### 🎯 Exercise 05: Design and implement a network for `foundever.com` with 45 users. Use the 192.168.0.0/24 IP address space
 CIA Method
@@ -597,6 +500,7 @@ config t
 show ip dhcp binding
 ~~~
 
+
 <br>
 <br>
 
@@ -642,11 +546,13 @@ S2
 - Reserved IPs: First 100 IPs
 - Assign to VLAN: 67
 
+
 <br>
 <br>
 
 ---
 &nbsp;
+
 
 ## Subnetting (Subnet)
 
@@ -676,47 +582,51 @@ S2
 ---
 &nbsp;
 
+
 ### 🎯 Exercise 07: Subnet for 8 offices using the Network address 192.168.128.0/27  Maximize the number of IP addresses.
 
 <br>
 
 ### CAI Method  
 __CONVERT *(Bit Value. NOT Length)*__  
-  8 = 3 bits  
+  8 = __ bits  
 
 <br>
 
 __ADD__  
-  /27 + 3 bits = /30 (4th, 4i)  
+  /__ + __ bits = /__ (__, __i)  
 
 <br>
 
 __INSERT(*IPASOK*)__  
-  1st Office: 192.168.128.0 /30  
-  2nd Office: 192.168.128.4 /30  
-  3rd Office: 192.168.128.8 /30  
-  4th Office: 192.168.128.12 /30  
-  5th Office: 192.168.128.16 /30  
-  6th Office: 192.168.128.20 /30  
-  7th Office: 192.168.128.24 /30  
-  8th Office: 192.168.128.28 /30  
+  1st Office: __.__.__.__  /__
+  2nd Office: __.__.__.__  /__
+  3rd Office: __.__.__.__  /__
+  4th Office: __.__.__.__  /__
+  5th Office: __.__.__.__  /__
+  6th Office: __.__.__.__  /__
+  7th Office: __.__.__.__  /__
+  8th Office: __.__.__.__  /__
 
 <br>
 
-From the NETWORK: 192.168.128.0 /27 (4th, 32i)  
+From the NETWORK: __.__.__.__  /__ (__, __i)   
 Valid Range:  
-- FIRST VALID: 192.168.128.1 /27  
-- LAST VALID: 192.168.128.30   
-- LAST IP/BROADCAST: 192.168.128.31  
+- FIRST VALID: __.__.__.__  
+- LAST VALID: __.__.__.__  
+- LAST IP/BROADCAST: __.__.__.__  
 
 <br>
-NEXT NETWORK: 192.168.128.32 /27  
+
+NEXT NETWORK: __.__.__.__ /__
+
 
 <br>
 <br>
 
 ---
 &nbsp;
+
 
 ### 🎯 Exercise 08: Subnet for 16 offices using the Network address 172.16.224.0/19. Maximize the number of IP addresses.
 
@@ -749,13 +659,15 @@ Offices:
 19. &nbsp;
 20. &nbsp;
 
+
 <br>
 <br>
 
 ---
 &nbsp;
 
-### 🎯 Exercise 09: Design and Implement 4 offices using the Network address 172.16.224.0/19. Maximize the number of IP addresses.
+
+### 🎯 Exercise 09: Design and Implement 4 offices using the Network address 172.16.32.0/19. Maximize the number of IP addresses.
 
 CAI Method
 - CONVERT:	
