@@ -2038,9 +2038,6 @@ conf t
  !
  crypto pki trustpoint CCNPTRUST
   enrollment url http://192.168.102.8/certsrv/mscep/mscep.dll
-  usage ike
-  usage ssl-server
-  usage ssl-client
   serial-number
   fqdn utmph.ccnp#$34T#.com
   ip-address 208.8.8.11
@@ -2061,9 +2058,6 @@ conf t
  !
  crypto pki trustpoint CCNPTRUST
   enrollment url http://192.168.102.8/certsrv/mscep/mscep.dll
-  usage ike
-  usage ssl-server
-  usage ssl-client
   serial-number
   fqdn utmjp.ccnp#$34T#.com
   ip-address 208.8.8.12
