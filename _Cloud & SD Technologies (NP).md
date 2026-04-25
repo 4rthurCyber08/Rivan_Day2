@@ -2258,3 +2258,272 @@ conf t
  ip route __.__.__.__  __.__.__.__  __.__.__.__
  end
 ~~~
+
+
+
+
+
+<br>
+<br>
+
+---
+&nbsp;
+
+
+
+
+
+
+
+
+## DMVPN
+
+### PRECONFIGS
+
+~~~
+!@UTM-PH
+conf t
+ hostname UTM-PH
+ enable secret pass
+ service password-encryption
+ no logging cons
+ ip domain lookup
+ ip domain lookup source-interface G2
+ ip name-server 192.168.102.8
+ line vty 0 14
+  transport input all
+  password pass
+  login local
+  exec-timeout 0 0
+ int g1
+  ip add 208.8.8.11 255.255.255.0
+  no shut
+ int g2
+  ip add 192.168.102.11 255.255.255.0
+  no shut
+ int g3
+  ip add 10.11.11.113 255.255.255.224
+  no shut
+ !
+ username admin privilege 15 secret pass
+ ip http server
+ ip http secure-server
+ ip http authentication local
+ ip route 0.0.0.0 0.0.0.0 208.8.8.2
+ end
+wr
+!
+~~~
+
+~~~
+!@UTM-JP
+conf t
+ hostname UTM-JP
+ enable secret pass
+ service password-encryption
+ no logging cons
+ ip domain lookup
+ ip domain lookup source-interface G2
+ ip name-server 192.168.102.8
+ line vty 0 14
+  transport input all
+  password pass
+  login local
+  exec-timeout 0 0
+ int g1
+  ip add 208.8.8.12 255.255.255.0
+  no shut
+ int g2
+  ip add 192.168.102.12 255.255.255.0
+  no shut
+ int g3
+  ip add 10.21.21.213 255.255.255.240
+  no shut
+ !
+ username admin privilege 15 secret pass
+ ip http server
+ ip http secure-server
+ ip http authentication local
+ ip route 0.0.0.0 0.0.0.0 208.8.8.2
+ end
+wr
+!
+~~~
+
+~~~
+!@UTM-US
+conf t
+ hostname UTM-US
+ enable secret pass
+ service password-encryption
+ no logging cons
+ ip domain lookup
+ ip domain lookup source-interface G2
+ ip name-server 192.168.102.8
+ line vty 0 14
+  transport input all
+  password pass
+  login local
+  exec-timeout 0 0
+ int g1
+  ip add 208.8.8.13 255.255.255.0
+  no shut
+ int g2
+  ip add 192.168.102.13 255.255.255.0
+  no shut
+ int g3
+  ip add 10.0.0.2 255.255.255.252
+  no shut
+ !
+ username admin privilege 15 secret pass
+ ip http server
+ ip http secure-server
+ ip http authentication local
+ ip route 0.0.0.0 0.0.0.0 208.8.8.2
+ end
+wr
+!
+~~~
+
+~~~
+!@BLDG-PH
+sudo su
+ifconfig eth0 10.11.11.101 netmask 255.255.255.224 up
+route add default gw 10.11.11.113
+ping 10.11.11.113
+~~~
+
+~~~
+!@BLDG-JP
+sudo su
+ifconfig eth0 10.21.21.211 netmask 255.255.255.240 up
+route add default gw 10.21.21.213
+ping 10.21.21.213
+~~~
+
+~~~
+!@BLDG-US
+sudo su
+ifconfig eth0 10.0.0.1 netmask 255.255.255.252 up
+route add default gw 10.0.0.2
+ping 10.0.0.2
+~~~
+
+
+<br>
+<br>
+
+---
+&nbsp;
+
+
+### STEP 1 - IKEV2
+HUB
+~~~
+!@UTM-US
+conf t
+ crypto ikev2 proposal IKEV2-PROP
+  encryption ___
+  integrity ___
+  group ___
+ !
+ crypto ikev2 policy IKEV2-POLICY
+  proposal ___
+ !
+ crypto ikev2 keyring DMVPN-KEYRING
+  peer SPOKES
+   address ___.___.___.___
+   pre-shared-key ___
+ !
+ crypto ikev2 profile DMVPN-IKEV2
+  ___
+  ___
+  ___
+  ___
+  end
+~~~
+
+SPOKE
+~~~
+!@UTM-PH,UTM-JP
+conf t
+ crypto ikev2 proposal IKEV2-PROP
+  encryption ___
+  integrity ___
+  group ___
+ !
+ crypto ikev2 policy IKEV2-POLICY
+  proposal ___
+ !
+ crypto ikev2 keyring DMVPN-KEYRING
+  peer SPOKES
+   address ___.___.___.___
+   pre-shared-key ___
+ !
+ crypto ikev2 profile DMVPN-IKEV2
+  ___
+  ___
+  ___
+  ___
+  end
+~~~
+
+
+<br>
+<br>
+
+---
+&nbsp;
+
+
+### STEP 2 - IPSEC
+
+HUB
+~~~
+!@UTM-US
+conf t
+ crypto ipsec transform-set TS ___
+  mode ___
+  !
+ crypto ipsec profile DMVPN-IPSEC
+  ___
+  ___
+ !
+ interface Tunnel1
+  
+  end
+~~~
+
+
+SPOKE
+~~~
+!@UTM-PH
+conf t
+ crypto ipsec transform-set TS ___
+  mode ___
+  !
+ crypto ipsec profile DMVPN-IPSEC
+  ___
+  ___
+ !
+ interface Tunnel1
+  
+  end
+~~~
+
+
+
+~~~
+!@UTM-JP
+conf t
+ crypto ipsec transform-set TS ___
+  mode ___
+  !
+ crypto ipsec profile DMVPN-IPSEC
+  ___
+  ___
+ !
+ interface Tunnel1
+  
+  end
+~~~
